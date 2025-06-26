@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Régimen Cambiario y Comercio Exterior</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slideshow-container {
+            max-width: 1000px;
+            position: relative;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+            margin: 20px;
+        }
+
+        .slide {
+            display: none;
+            padding: 60px;
+            min-height: 600px;
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        .slide h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-align: center;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .slide h2 {
+            color: #34495e;
+            font-size: 2rem;
+            margin-bottom: 25px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .slide h3 {
+            color: #2980b9;
+            font-size: 1.4rem;
+            margin: 20px 0 15px 0;
+        }
+
+        .slide p, .slide li {
+            color: #2c3e50;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .slide ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .slide li {
+            margin-bottom: 10px;
+        }
+
+        .intro-slide {
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .intro-slide h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: white;
+            background: none;
+            -webkit-text-fill-color: white;
+        }
+
+        .intro-slide .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .intro-slide .author {
+            font-size: 1.2rem;
+            margin-top: 40px;
+            opacity: 0.8;
+        }
+
+        .controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .slide-counter {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(102, 126, 234, 0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #667eea;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .comparison-table th {
+            background: #667eea;
+            color: white;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .icon {
+            font-size: 3rem;
+            margin: 20px 0;
+            text-align: center;
+            color: #667eea;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .advantage {
+            background: rgba(39, 174, 96, 0.1);
+            border-left: 4px solid #27ae60;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+
+        .disadvantage {
+            background: rgba(231, 76, 60, 0.1);
+            border-left: 4px solid #e74c3c;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 30px;
+            }
+            
+            .slide h1 {
+                font-size: 2rem;
+            }
+            
+            .slide h2 {
+                font-size: 1.5rem;
+            }
+            
+            .two-column {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slideshow-container">
+        <div class="slide-counter">
+            <span id="currentSlide">1</span> / <span id="totalSlides">16</span>
+        </div>
+
+        <!-- Slide 1: Título -->
+        <div class="slide active intro-slide">
+            <div class="icon">COMERCIO GLOBAL</div>
+            <h1>Régimen Cambiario y Comercio Exterior</h1>
+            <p class="subtitle">Fundamentos para Negocios y Mercadeo Internacional</p>
+            <p class="author">Curso de Negocios y Mercadeo Internacional</p>
+        </div>
+
+        <!-- Slide 2: Agenda -->
+        <div class="slide">
+            <h2>Agenda de la Presentación</h2>
+            <ul>
+                <li><strong>Conceptos Fundamentales</strong> - Definiciones básicas y terminología</li>
+                <li><strong>Tipos de Regímenes Cambiarios</strong> - Fijo, flexible y sistemas intermedios</li>
+                <li><strong>Impacto en el Comercio Exterior</strong> - Competitividad y flujos comerciales</li>
+                <li><strong>Gestión de Riesgos Cambiarios</strong> - Identificación y cobertura</li>
+                <li><strong>Instrumentos de Cobertura</strong> - Forwards, opciones y otros derivados</li>
+                <li><strong>Casos Prácticos</strong> - Ejemplos reales de países</li>
+                <li><strong>Tendencias Actuales</strong> - CBDC y nuevas tecnologías</li>
+            </ul>
+        </div>
+
+        <!-- Slide 3: Conceptos Fundamentales -->
+        <div class="slide">
+            <h2>Conceptos Fundamentales</h2>
+            <div class="highlight-box">
+                <h3>Régimen Cambiario</h3>
+                <p>Conjunto de reglas, instituciones y mecanismos que determinan cómo se establece el tipo de cambio de una moneda nacional respecto a otras monedas extranjeras.</p>
+            </div>
+            <div class="two-column">
+                <div>
+                    <h3>Tipo de Cambio</h3>
+                    <p>Precio de una moneda expresado en términos de otra moneda. Facilita el intercambio comercial internacional.</p>
+                </div>
+                <div>
+                    <h3>Divisa</h3>
+                    <p>Monedas extranjeras utilizadas en transacciones internacionales (USD, EUR, JPY, GBP, CNY).</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Tipo de Cambio Fijo -->
+        <div class="slide">
+            <h2>Régimen de Tipo de Cambio Fijo</h2>
+            <p><strong>Definición:</strong> El banco central mantiene el valor de la moneda en un nivel predeterminado respecto a una moneda de referencia.</p>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Ventajas</h3>
+                    <div class="advantage">Estabilidad en precios internacionales</div>
+                    <div class="advantage">Facilita planificación empresarial</div>
+                    <div class="advantage">Reduce costos de transacción</div>
+                    <div class="advantage">Ancla contra la inflación</div>
+                </div>
+                <div>
+                    <h3>Desventajas</h3>
+                    <div class="disadvantage">Pérdida de competitividad</div>
+                    <div class="disadvantage">Vulnerabilidad a ataques especulativos</div>
+                    <div class="disadvantage">Necesidad de altas reservas</div>
+                    <div class="disadvantage">Limitación de política monetaria</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Tipo de Cambio Flexible -->
+        <div class="slide">
+            <h2>Régimen de Tipo de Cambio Flexible</h2>
+            <p><strong>Definición:</strong> El valor de la moneda se determina libremente por las fuerzas del mercado, sin intervención sistemática del banco central.</p>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Ventajas</h3>
+                    <div class="advantage">Ajuste automático ante shocks</div>
+                    <div class="advantage">Política monetaria independiente</div>
+                    <div class="advantage">No requiere altas reservas</div>
+                    <div class="advantage">Refleja fundamentales económicos</div>
+                </div>
+                <div>
+                    <h3>Desventajas</h3>
+                    <div class="disadvantage">Alta volatilidad</div>
+                    <div class="disadvantage">Costos de cobertura</div>
+                    <div class="disadvantage">Impacto inflacionario</div>
+                    <div class="disadvantage">Dificultad en planificación</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Sistemas Intermedios -->
+        <div class="slide">
+            <h2>Sistemas Cambiarios Intermedios</h2>
+            
+            <div class="highlight-box">
+                <h3>Bandas Cambiarias</h3>
+                <p>El tipo de cambio fluctúa dentro de márgenes preestablecidos. Intervención solo en los límites.</p>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h3>Crawling Peg</h3>
+                    <p>Ajustes pequeños y frecuentes según indicadores como inflación diferencial.</p>
+                </div>
+                <div>
+                    <h3>Flotación Sucia</h3>
+                    <p>Flexibilidad con intervenciones esporádicas para evitar fluctuaciones excesivas.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Comparación de Regímenes -->
+        <div class="slide">
+            <h2>Comparación de Regímenes Cambiarios</h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Aspecto</th>
+                        <th>Tipo de Cambio Fijo</th>
+                        <th>Tipo de Cambio Flexible</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Estabilidad</td>
+                        <td>Alta</td>
+                        <td>Baja</td>
+                    </tr>
+                    <tr>
+                        <td>Política Monetaria</td>
+                        <td>Limitada</td>
+                        <td>Independiente</td>
+                    </tr>
+                    <tr>
+                        <td>Reservas Necesarias</td>
+                        <td>Altas</td>
+                        <td>Bajas</td>
+                    </tr>
+                    <tr>
+                        <td>Ajuste a Shocks</td>
+                        <td>Difícil</td>
+                        <td>Automático</td>
+                    </tr>
+                    <tr>
+                        <td>Planificación Empresarial</td>
+                        <td>Fácil</td>
+                        <td>Difícil</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Slide 8: Impacto en Comercio Exterior -->
+        <div class="slide">
+            <h2>Impacto en el Comercio Exterior</h2>
+            
+            <div class="highlight-box">
+                <h3>Competitividad Internacional</h3>
+                <p>Una moneda depreciada hace las exportaciones más baratas y las importaciones más caras, mejorando la balanza comercial.</p>
+            </div>
+
+            <h3>Efectos Principales:</h3>
+            <ul>
+                <li><strong>Exportaciones:</strong> Moneda débil = mayor competitividad</li>
+                <li><strong>Importaciones:</strong> Moneda fuerte = menores costos</li>
+                <li><strong>Inversión:</strong> Estabilidad cambiaria atrae capital extranjero</li>
+                <li><strong>Planificación:</strong> Volatilidad complica decisiones empresariales</li>
+            </ul>
+        </div>
+
+        <!-- Slide 9: Riesgos Cambiarios -->
+        <div class="slide">
+            <h2>Tipos de Riesgos Cambiarios</h2>
+            
+            <div class="highlight-box">
+                <h3>Riesgo de Transacción</h3>
+                <p>Fluctuaciones entre la fecha de transacción y el pago en moneda extranjera.</p>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h3>Riesgo de Traducción</h3>
+                    <p>Consolidación de estados financieros de subsidiarias en diferentes monedas.</p>
+                </div>
+                <div>
+                    <h3>Riesgo Económico</h3>
+                    <p>Impacto en el valor presente de flujos de caja futuros por fluctuaciones cambiarias.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Instrumentos de Cobertura -->
+        <div class="slide">
+            <h2>Instrumentos de Cobertura Cambiaria</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Forward</h3>
+                    <p>Contrato que fija el tipo de cambio para una transacción futura específica.</p>
+                    
+                    <h3>Opciones</h3>
+                    <p>Derecho (no obligación) de comprar/vender divisas a un tipo predeterminado.</p>
+                </div>
+                <div>
+                    <h3>Swaps</h3>
+                    <p>Intercambio de flujos de efectivo en diferentes monedas.</p>
+                    
+                    <h3>Futuros</h3>
+                    <p>Contratos estandarizados negociados en bolsas organizadas.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Caso Ecuador -->
+        <div class="slide">
+            <h2>Caso Práctico: Dolarización en Ecuador</h2>
+            
+            <div class="highlight-box">
+                <h3>Contexto</h3>
+                <p>Ecuador adoptó el dólar estadounidense como moneda oficial en 2000 tras una severa crisis financiera.</p>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h3>Beneficios Obtenidos</h3>
+                    <ul>
+                        <li>Eliminación del riesgo cambiario</li>
+                        <li>Estabilidad de precios</li>
+                        <li>Mayor confianza internacional</li>
+                        <li>Facilita comercio con EE.UU.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Costos Asociados</h3>
+                    <ul>
+                        <li>Pérdida de política monetaria</li>
+                        <li>Pérdida de señoreaje</li>
+                        <li>Dependencia de dólares físicos</li>
+                        <li>Dificultad para ajustes macroeconómicos</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Caso Argentina -->
+        <div class="slide">
+            <h2>Caso Práctico: Crisis Argentina 2001</h2>
+            
+            <div class="highlight-box">
+                <h3>La Convertibilidad</h3>
+                <p>Argentina mantuvo paridad 1:1 peso-dólar desde 1991 hasta 2001, cuando colapsó el sistema.</p>
+            </div>
+
+            <h3>Secuencia de la Crisis:</h3>
+            <ul>
+                <li><strong>1991-1999:</strong> Estabilidad y crecimiento bajo convertibilidad</li>
+                <li><strong>1999-2001:</strong> Pérdida de competitividad y recesión</li>
+                <li><strong>2001:</strong> Abandono de la convertibilidad y fuerte devaluación</li>
+                <li><strong>Resultado:</strong> Peso se devaluó de 1:1 a 4:1 con el dólar</li>
+            </ul>
+
+            <div class="highlight-box">
+                <h3>Lecciones Aprendidas</h3>
+                <p>La sostenibilidad de un régimen fijo requiere disciplina fiscal, competitividad y suficientes reservas internacionales.</p>
+            </div>
+        </div>
+
+        <!-- Slide 13: Tendencias Actuales -->
+        <div class="slide">
+            <h2>Tendencias Actuales y Futuras</h2>
+            
+            <div class="highlight-box">
+                <h3>Monedas Digitales de Bancos Centrales (CBDC)</h3>
+                <p>Los bancos centrales están desarrollando versiones digitales de sus monedas que podrían revolucionar los pagos internacionales.</p>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h3>Desdolarización</h3>
+                    <p>Algunos países buscan reducir dependencia del dólar en comercio internacional mediante:</p>
+                    <ul>
+                        <li>Acuerdos bilaterales en monedas locales</li>
+                        <li>Uso de otras monedas de reserva</li>
+                        <li>Sistemas de pago alternativos</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Criptomonedas</h3>
+                    <p>Aunque limitadas, están emergiendo en:</p>
+                    <ul>
+                        <li>Pagos transfronterizos</li>
+                        <li>Países con restricciones cambiarias</li>
+                        <li>Comercio de bienes digitales</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Estrategias para Empresas -->
+        <div class="slide">
+            <h2>Estrategias para Empresas Exportadoras</h2>
+            
+            <h3>Gestión del Riesgo Cambiario</h3>
+            <div class="two-column">
+                <div>
+                    <h4>Evaluación de Exposición</h4>
+                    <ul>
+                        <li>Identificar flujos en moneda extranjera</li>
+                        <li>Cuantificar exposición neta</li>
+                        <li>Analizar correlaciones</li>
+                        <li>Establecer límites de riesgo</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Estrategias de Cobertura</h4>
+                    <ul>
+                        <li>Cobertura natural (matching)</li>
+                        <li>Instrumentos financieros derivados</li>
+                        <li>Diversificación de mercados</li>
+                        <li>Cláusulas de ajuste en contratos</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h3>Recomendación Clave</h3>
+                <p>Desarrollar una política cambiaria integral que balancee costos de cobertura con exposición al riesgo, considerando el perfil de riesgo y objetivos estratégicos de la empresa.</p>
+            </div>
+        </div>
+
+        <!-- Slide 15: Conclusiones -->
+        <div class="slide">
+            <h2>Conclusiones Principales</h2>
+            
+            <div class="highlight-box">
+                <h3>Puntos Clave</h3>
+                <ul>
+                    <li><strong>No existe régimen cambiario perfecto:</strong> Cada sistema tiene ventajas y desventajas según el contexto económico</li>
+                    <li><strong>Impacto directo en competitividad:</strong> El tipo de cambio afecta directamente la capacidad exportadora</li>
+                    <li><strong>Gestión de riesgos es esencial:</strong> Las empresas deben desarrollar estrategias de cobertura apropiadas</li>
+                    <li><strong>Evolución constante:</strong> Los sistemas cambiarios se adaptan a nuevas realidades tecnológicas y económicas</li>
+                </ul>
+            </div>
+
+            <h3>Para el Profesional Internacional</h3>
+            <div class="two-column">
+                <div>
+                    <h4>Conocimiento Necesario</h4>
+                    <ul>
+                        <li>Fundamentos de regímenes cambiarios</li>
+                        <li>Instrumentos de cobertura disponibles</li>
+                        <li>Análisis de riesgo país</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Habilidades Prácticas</h4>
+                    <ul>
+                        <li>Evaluación de exposición cambiaria</li>
+                        <li>Diseño de estrategias de cobertura</li>
+                        <li>Monitoreo de variables macro</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 16: Preguntas y Discusión -->
+        <div class="slide intro-slide">
+            <div class="icon">PREGUNTAS</div>
+            <h1>Preguntas y Discusión</h1>
+            <p class="subtitle">Régimen Cambiario y Comercio Exterior</p>
+            <div style="margin-top: 40px;">
+                <p>Contacto para consultas adicionales</p>
+                <p>Material complementario disponible</p>
+                <p>Casos de estudio para análisis posterior</p>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="btn" onclick="previousSlide()">? Anterior</button>
+            <button class="btn" onclick="nextSlide()">Siguiente ?</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        document.getElementById('totalSlides').textContent = totalSlides;
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[index].classList.add('active');
+            document.getElementById('currentSlide').textContent = index + 1;
+        }
+
+        function nextSlide() {
+            currentSlideIndex = (currentSlideIndex + 1) % totalSlides;
+            showSlide(currentSlideIndex);
+        }
+
+        function previousSlide() {
+            currentSlideIndex = (currentSlideIndex - 1 + totalSlides) % totalSlides;
+            showSlide(currentSlideIndex);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowRight' || event.key === ' ') {
+                nextSlide();
+            } else if (event.key === 'ArrowLeft') {
+                previousSlide();
+            }
+        });
+
+        // Touch navigation for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', function(event) {
+            touchStartX = event.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', function(event) {
+            touchEndX = event.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) {
+                nextSlide();
+            }
+            if (touchEndX > touchStartX + 50) {
+                previousSlide();
+            }
+        }
+
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+</html>
